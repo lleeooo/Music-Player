@@ -1,14 +1,22 @@
 <template>
   <div id="app">
-    <h2>hellow word</h2>
+    <my-header></my-header>
   </div>
 </template>
 
+<script>
+import MyHeader from "components/content/m-header/MyHeader";
+export default {
+  name: "App",
+  components: {
+    MyHeader,
+  },
+};
+</script>
 
 <style lang="stylus" scoped>
- @import '~assets/stylus/variable.styl'
+@import '~assets/stylus/variable.styl';
+@import '~assets/stylus/mixin.styl';
 
-//  h2
-//   color:$color-theme
-
+  
 </style>
