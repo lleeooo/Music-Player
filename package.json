@@ -11,6 +11,7 @@
     "babel-runtime": "^6.26.0",
     "core-js": "^3.6.5",
     "fastclick": "^1.0.6",
+    "jsonp": "^0.2.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
