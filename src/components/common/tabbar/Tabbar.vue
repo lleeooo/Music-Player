@@ -29,5 +29,6 @@ export default {
   height: 44px;
   line-height: 44px;
   font-size: $font-size-medium;
+  color $color-text-l  
 }
 </style>

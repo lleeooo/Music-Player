@@ -32,11 +32,12 @@ export default {
 
 .text {
   padding-bottom: 5px;
-  color $color-text-l  
+  
 }
 
 .active {
   color: $color-theme;
   border-bottom: 2px solid $color-theme;
+  margin-bottom 5px
 }
 </style>
