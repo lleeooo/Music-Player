@@ -2,19 +2,21 @@
   <div id="app">
     <my-header></my-header>
     <main-tabbar></main-tabbar>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
 import MyHeader from "components/content/m-header/MyHeader";
-import MainTabbar from "components/content/MainTabbar"
+import MainTabbar from "components/content/MainTabbar";
 
 export default {
   name: "App",
   components: {
     MyHeader,
-    MainTabbar
+    MainTabbar,
   },
 };
 </script>
@@ -22,6 +24,4 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/stylus/variable.styl';
 @import '~assets/stylus/mixin.styl';
-
-
 </style>
