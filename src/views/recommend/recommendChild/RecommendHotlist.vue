@@ -2,7 +2,7 @@
   <div class="hotlist" v-if="Object.keys(hotList).length !== 0">
     <div class="hotlist-item" v-for="(item , index) in hotList" :key="index">
       <div class="img">
-        <img :src="item.coverImgUrl" />
+        <img v-lazy="item.coverImgUrl" @load="HotistImgload" />
       </div>
       <div class="text">
         <div class="text-name">{{item.name}}</div>
@@ -23,11 +23,25 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      lock: 0,
+    };
+  },
+  methods: {
+    HotistImgload() {
+      this.lock += 1;
+      if (this.lock == this.hotList.length) {
+        this.$emit("HotistImgload");
+      }
+    },
+  },
 };
 </script>
 
 <style lang="stylus" scoped>
-@import "~assets/stylus/variable"
+@import '~assets/stylus/variable';
+
 .hotlist {
   padding-left: 20px;
 
@@ -47,15 +61,18 @@ export default {
     }
 
     .text {
-      padding-left 10px
-      font-size $font-size-medium
+      padding-left: 20px;
+      font-size: $font-size-medium;
 
-      .text-name{
-        padding-bottom 20px
-        color #fff
+
+      .text-name {
+        padding-bottom: 20px;
+        color: #fff;
+        font-size $font-size-small
       }
+
       .text-tittle {
-        color $color-text-d
+        color: $color-text-d;
       }
     }
   }

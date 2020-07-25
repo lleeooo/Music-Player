@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <my-header></my-header>
-    <main-tabbar></main-tabbar>
+    <my-header class="header"></my-header>
+    <main-tabbar class="tabbar"></main-tabbar>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
