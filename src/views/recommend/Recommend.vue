@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       hostList: [],
+      posY: 0
     };
   },
   components: {
@@ -50,9 +51,15 @@ export default {
     //每一次获取到照片 就刷新一次scroll的高度
     HotistImgload() {
       this.$refs.scroll.refresh();
-      console.log(1);
     },
   },
+  deactivated(){
+    this.posY = this.$refs.scroll.scroll.y
+  },
+  activated(){
+    this.$refs.scroll.scrollTo(0, this.posY, 100),
+    this.$refs.scroll.refresh()
+  }
 };
 </script>
 
@@ -60,10 +67,10 @@ export default {
 @import '~assets/stylus/variable';
 
 .recommend {
-  height: 100vh;
+  height: 89vh;
 
   .content {
-    height: calc(100% - 88px);
+    height: calc(100% - 40px);
     overflow: hidden;
     position relative
 

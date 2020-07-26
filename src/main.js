@@ -12,7 +12,9 @@ fastclick.attach(document.body)
 
 Vue.config.productionTip = false
 
-Vue.use(lazyload)
+Vue.use(lazyload , {
+  loading: require('./assets/img/Occupation.png')
+})
 
 
 new Vue({

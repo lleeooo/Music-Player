@@ -24,9 +24,10 @@ export default {
     align-items center
     .icon
       bg-image('logo')
-      width 30px
+      width 40px
       height 32px
-      background-size 30px 32px
+      background-size 40px 32px
+      background-repeat no-repeat
     .text
       font-size $font-size-large
       margin-left  5px
