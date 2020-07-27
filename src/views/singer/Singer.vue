@@ -2,18 +2,22 @@
   <div class="singer">
     <div class="title">热搜歌手</div>
     <scroll class="content" ref="scroll">
-      <singer-infolist :singerList="singerList" @singerImgLoad="singerImgLoad" />
+      <singer-infolist :singerList="singerList" @singerImgLoad="singerImgLoad" @singerItemClick="singerItemClick"/>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+//组件
 import scroll from "components/common/scroll/Scroll";
-
 import SingerInfolist from "./singerChild/SingerInfolist";
 
 //网络请求
 import { getHotSingerList } from "network/singer";
+
+//映射mutations的方法 方便调用里面的方法 而不用commit
+import {mapMutations} from 'vuex'
 
 export default {
   name: "Singer",
@@ -30,7 +34,7 @@ export default {
     //获取歌手数据
     _getSinger() {
       getHotSingerList().then((res) => {
-        console.log(res);
+        // console.log(res);
         this.singerList = res.data.artists;
       });
     },
@@ -43,6 +47,22 @@ export default {
         this.$refs.scroll.refresh();
       }, 200);
     },
+
+    //点击歌手时跳转路由
+    singerItemClick(item){
+      this.$router.push({
+        path: `/singer/${item.id}`
+      })
+
+      //把点击的歌手信息传到mutations里面的setSinger方法
+      this.setSinger(item)
+
+    },
+
+    ...mapMutations({
+      setSinger: 'setSinger'
+    })
+
   },
   components: {
     scroll,
@@ -63,6 +83,8 @@ export default {
 .singer {
   height: 89vh;
   position: relative;
+  
+
 
   .content {
     height: calc(100% - 40px);

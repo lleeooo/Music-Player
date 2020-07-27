@@ -4,7 +4,7 @@
       v-for="(item , index) in singerList"
       :key="index"
       class="singer-item"
-      @click="itemClick(index)"
+      @click="itemClick(index , item)"
       :class="{active: curIndex === index}"
       ref="listGrup"
     >
@@ -42,8 +42,11 @@ export default {
     },
 
     //点击歌手事件
-    itemClick(index) {
+    itemClick(index, item) {
       this.curIndex = index;
+
+      //点击的同时把点击的这个对象传出去
+      this.$emit("singerItemClick", item);
     },
   },
 };
@@ -55,6 +58,7 @@ export default {
 
 .info-list {
   padding: 5px 20px;
+
 
   .singer-item {
     display: flex;
