@@ -58,6 +58,9 @@ export default {
 
     refresh() {
       this.scroll && this.scroll.refresh();
+    },
+    elementTo(el , time = 1000) {
+      this.scroll && this.scroll.scrollToElement(el , time)
     }
   }
 };

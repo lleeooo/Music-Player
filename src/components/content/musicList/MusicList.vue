@@ -6,18 +6,18 @@
     <div class="title" v-html="singerName"></div>
     <div class="bg-img" :style="bgStyle" ref="bgimg">
       <div class="play-wrapper" ref="playWrapper">
-        <div class="play" v-show="songs.length != 0">
+        <div class="play" v-show="songs.length != 0" @click="clickRandomPlay">
           <div class="img">
             <img src="~assets/img/play.png" alt />
           </div>
-          <span class="text">随机播放全部</span>
+          <span class="text" >随机播放全部</span>
         </div>
       </div>
     </div>
 
     <div class="bg-layer" ref="bglayer"></div>
     <scroll class="content" ref="scroll" :probeType="3" @scroll="scrollPosition">
-      <song-list class="song-list" :songs="songs" ref="songslist"></song-list>
+      <song-list class="song-list" :songs="songs" ref="songslist" @select="selectItem"/>
       <div class="loding">
         <loading v-show="!songs.length" />
       </div>
@@ -29,6 +29,8 @@
 import SongList from "./SongList";
 import scroll from "components/common/scroll/Scroll";
 import loading from "components/common/loading/Loading";
+
+import {mapActions , mapGetters} from "vuex"
 
 const NAV_HEIGHT = 52;
 export default {
@@ -60,6 +62,8 @@ export default {
     bgStyle() {
       return `background-image:url(${this.bgImg})`;
     },
+
+    ...mapGetters(["playlist"])
   },
   mounted() {
     this.bgimgHeight = this.$refs.bgimg.clientHeight;
@@ -84,6 +88,41 @@ export default {
     scrollPosition(pos) {
       this.posY = pos.y;
     },
+
+    //接收点击的歌曲信息 并对调用action方法对state进行设置
+    //selectItem 需要传入两个参数 list：全部歌曲 index：当前点击的这个首歌角标 
+    selectItem(item , index){
+      console.log(item)
+      this.selectPlay({
+        list: this.songs,
+        index: index
+      })
+
+      if(this.playlist.length > 0) {
+        console.log(111)
+        this.changeScrollHeight()
+      }
+    },
+
+    //点击随机播放全部
+    clickRandomPlay() {
+      this.randomPlay({
+        list: this.songs
+      })
+    },
+    //改变scroll包裹高度
+    changeScrollHeight() {
+      if(this.playlist.length > 0){
+        this.$refs.scroll.$el.style.height = `calc(100% - 325px)`
+        this.$refs.scroll.refresh()
+      }
+    },
+
+
+    ...mapActions([
+      'selectPlay',
+      'randomPlay'
+    ])
   },
   watch: {
     //监控posy 然后给songlist的蒙层layer 进行赋值让其移动
@@ -120,6 +159,14 @@ export default {
       //进行样式赋值
       this.$refs.bgimg.style.transform = `scale(${scale})`;
     },
+
+    // //监控歌曲列表
+    // playlist() {
+    //   console.log(1111)
+    //   //一旦添加了列表有了数据 我们更新scroll的包裹高度
+    //   this.changeScrollHeight()
+    // }
+
   },
 };
 </script>

@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import {changeScrollHeight} from "@/common/js/changeScrollHeight"
+import {mapGetters} from "vuex"
 //better-scroll
 import scroll from "components/common/scroll/Scroll";
 import loading from "components/common/loading/Loading";
@@ -38,6 +40,14 @@ export default {
   },
   created() {
     this._getHotList();
+  },
+  computed: {
+    ...mapGetters(["playlist"])
+  },
+  watch: {
+    playlist() {
+      changeScrollHeight(this.playlist , this.$refs.scroll.$el , this.$refs.scroll , 70)
+    }
   },
   methods: {
     //网络请求相关方法

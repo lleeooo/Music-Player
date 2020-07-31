@@ -2,13 +2,18 @@
   <div class="singer">
     <div class="title">热搜歌手</div>
     <scroll class="content" ref="scroll">
-      <singer-infolist :singerList="singerList" @singerImgLoad="singerImgLoad" @singerItemClick="singerItemClick"/>
+      <singer-infolist
+        :singerList="singerList"
+        @singerImgLoad="singerImgLoad"
+        @singerItemClick="singerItemClick"
+      />
     </scroll>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import { changeScrollHeight } from "@/common/js/changeScrollHeight";
 //组件
 import scroll from "components/common/scroll/Scroll";
 import SingerInfolist from "./singerChild/SingerInfolist";
@@ -17,14 +22,14 @@ import SingerInfolist from "./singerChild/SingerInfolist";
 import { getHotSingerList } from "network/singer";
 
 //映射mutations的方法 方便调用里面的方法 而不用commit
-import {mapMutations} from 'vuex'
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "Singer",
   data() {
     return {
       singerList: [],
-      posY: 0
+      posY: 0,
     };
   },
   created() {
@@ -49,20 +54,18 @@ export default {
     },
 
     //点击歌手时跳转路由
-    singerItemClick(item){
+    singerItemClick(item) {
       this.$router.push({
-        path: `/singer/${item.id}`
-      })
+        path: `/singer/${item.id}`,
+      });
 
       //把点击的歌手信息传到mutations里面的setSinger方法
-      this.setSinger(item)
-
+      this.setSinger(item);
     },
 
     ...mapMutations({
-      setSinger: 'setSinger'
-    })
-
+      setSinger: "setSinger",
+    }),
   },
   components: {
     scroll,
@@ -74,6 +77,19 @@ export default {
   activated() {
     this.$refs.scroll.scrollTo(0, this.posY, 100), this.$refs.scroll.refresh();
   },
+  computed: {
+    ...mapGetters(["playlist"]),
+  },
+  watch: {
+    playlist() {
+      changeScrollHeight(
+        this.playlist,
+        this.$refs.scroll.$el,
+        this.$refs.scroll,
+        100
+      );
+    },
+  },
 };
 </script>
 
@@ -83,8 +99,6 @@ export default {
 .singer {
   height: 89vh;
   position: relative;
-  
-
 
   .content {
     height: calc(100% - 40px);
