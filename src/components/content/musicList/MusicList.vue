@@ -3,21 +3,25 @@
     <div class="black" @click="black">
       <img src="~assets/img/back.png" alt />
     </div>
-    <div class="title" v-html="singerName"></div>
+    <div class="top">
+      <div class="top-l"></div>
+      <div class="title top-c" v-html="singerName"></div>
+      <div class="top-r"></div>
+    </div>
     <div class="bg-img" :style="bgStyle" ref="bgimg">
-      <div class="play-wrapper" ref="playWrapper">
-        <div class="play" v-show="songs.length != 0" @click="clickRandomPlay">
+      <div class="play-wrapper" ref="playWrapper"  v-show="songs.length != 0" >
+        <div class="play" @click="clickRandomPlay">
           <div class="img">
             <img src="~assets/img/play.png" alt />
           </div>
-          <span class="text" >随机播放全部</span>
+          <span class="text">随机播放全部</span>
         </div>
       </div>
     </div>
 
     <div class="bg-layer" ref="bglayer"></div>
     <scroll class="content" ref="scroll" :probeType="3" @scroll="scrollPosition">
-      <song-list class="song-list" :songs="songs" ref="songslist" @select="selectItem"/>
+      <song-list class="song-list" :songs="songs" ref="songslist" @select="selectItem" />
       <div class="loding">
         <loading v-show="!songs.length" />
       </div>
@@ -30,7 +34,7 @@ import SongList from "./SongList";
 import scroll from "components/common/scroll/Scroll";
 import loading from "components/common/loading/Loading";
 
-import {mapActions , mapGetters} from "vuex"
+import { mapActions, mapGetters } from "vuex";
 
 const NAV_HEIGHT = 52;
 export default {
@@ -63,7 +67,7 @@ export default {
       return `background-image:url(${this.bgImg})`;
     },
 
-    ...mapGetters(["playlist"])
+    ...mapGetters(["playlist"]),
   },
   mounted() {
     this.bgimgHeight = this.$refs.bgimg.clientHeight;
@@ -71,7 +75,6 @@ export default {
 
     this.$refs.songslist.$el.style.top = `${this.bgimgHeight}px`;
     this.$refs.scroll.$el.style.top = `${this.bgimgHeight}px`;
-
   },
   components: {
     SongList,
@@ -90,44 +93,38 @@ export default {
     },
 
     //接收点击的歌曲信息 并对调用action方法对state进行设置
-    //selectItem 需要传入两个参数 list：全部歌曲 index：当前点击的这个首歌角标 
-    selectItem(item , index){
-      console.log(item)
+    //selectItem 需要传入两个参数 list：全部歌曲 index：当前点击的这个首歌角标
+    selectItem(item, index) {
+      console.log(item);
       this.selectPlay({
         list: this.songs,
-        index: index
-      })
+        index: index,
+      });
 
-      if(this.playlist.length > 0) {
-        console.log(111)
-        this.changeScrollHeight()
+      if (this.playlist.length > 0) {
+        this.changeScrollHeight();
       }
     },
 
     //点击随机播放全部
     clickRandomPlay() {
       this.randomPlay({
-        list: this.songs
-      })
+        list: this.songs,
+      });
     },
     //改变scroll包裹高度
     changeScrollHeight() {
-      if(this.playlist.length > 0){
-        this.$refs.scroll.$el.style.height = `calc(100% - 325px)`
-        this.$refs.scroll.refresh()
+      if (this.playlist.length > 0) {
+        this.$refs.scroll.$el.style.height = `calc(100% - 325px)`;
+        this.$refs.scroll.refresh();
       }
     },
 
-
-    ...mapActions([
-      'selectPlay',
-      'randomPlay'
-    ])
+    ...mapActions(["selectPlay", "randomPlay"]),
   },
   watch: {
     //监控posy 然后给songlist的蒙层layer 进行赋值让其移动
     posY(newY) {
-      
       let translateY = Math.max(this.minTranslaterY, newY);
       this.$refs.bglayer.style["transform"] = `translateY(${translateY}px)`;
 
@@ -166,7 +163,6 @@ export default {
     //   //一旦添加了列表有了数据 我们更新scroll的包裹高度
     //   this.changeScrollHeight()
     // }
-
   },
 };
 </script>
@@ -195,16 +191,25 @@ export default {
     }
   }
 
-  .title {
-    height: 52px;
-    line-height: 52px;
+  .top {
+    display: flex;
     width: 100%;
-    font-size: $font-size-large;
-    color: $color-text;
-    font-weight: 550;
-    text-align: center;
-    position: absolute;
-    z-index: 100;
+    justify-content: center;
+
+    .title {
+      height: 52px;
+      line-height: 52px;
+      width: 200px;
+      font-size: $font-size-large;
+      color: $color-text;
+      font-weight: 550;
+      text-align: center;
+      position: absolute;
+      z-index: 100;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .bg-img {
@@ -257,12 +262,13 @@ export default {
   .content {
     height: calc(100% - 265px);
     position: fixed;
+
     // overflow hidden
     .loding {
-      position fixed   
-      top 50%
-      left 50%
-      transform translate(-50% , -50%)
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }

@@ -24,11 +24,11 @@ export function getSingerSong(id) {
 
 
 //请求某一首歌的详细信息
-export function getSingerSongMessage() {
+export function getSingerSongMessage(id) {
   return request({
     url: '/song/detail',
     params: {
-      ids: 1407551413
+      ids: id
     }
   })
 }

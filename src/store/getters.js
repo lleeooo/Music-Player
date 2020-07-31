@@ -1,5 +1,7 @@
 // import {}
 
+import state from "./state"
+
 export const singer = state => state.singer
 
 export const playing = state => state.playing
@@ -13,6 +15,8 @@ export const sequenceList = state => state.sequenceList
 export const mode = state => state.mode
 
 export const curIndex = state => state.curIndex
+
+export const disc = state => state.disc
 
 
 //获取播放列表中 正在播放的歌

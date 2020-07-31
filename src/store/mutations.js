@@ -36,6 +36,12 @@ const mutations = {
     state.curIndex = index
   },
 
+
+  //设置歌单信息
+  [type.SET_DISC](state , disc) {
+    state.disc = disc
+  },
+
   
 }
 export default mutations

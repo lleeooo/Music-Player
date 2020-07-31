@@ -1,6 +1,6 @@
 <template>
   <div class="hotlist" v-if="Object.keys(hotList).length !== 0">
-    <div class="hotlist-item" v-for="(item , index) in hotList" :key="index">
+    <div class="hotlist-item" v-for="(item , index) in hotList" :key="index" @click="clickRecommend(item , index)">
       <div class="img">
         <img v-lazy="item.coverImgUrl" @load="HotistImgload" />
       </div>
@@ -35,6 +35,11 @@ export default {
         this.$emit("HotistImgload");
       }
     },
+
+    //点击歌单 返回点击事件
+    clickRecommend(item , index) {
+      this.$emit('clickRecommend', item , index)
+    }
   },
 };
 </script>

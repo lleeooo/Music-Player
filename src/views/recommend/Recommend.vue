@@ -3,15 +3,16 @@
     <scroll class="content" ref="scroll">
       <recommend-swiper />
       <div class="text">热门歌单推荐</div>
-      <recommend-hotlist :hotList="hostList" @HotistImgload="HotistImgload" class="hot-list" />
+      <recommend-hotlist :hotList="hostList" @HotistImgload="HotistImgload" class="hot-list" @clickRecommend="clickRecommend"/>
       <loading class="loading" v-show="!hostList.length"></loading>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import {changeScrollHeight} from "@/common/js/changeScrollHeight"
-import {mapGetters} from "vuex"
+import {mapGetters , mapMutations} from "vuex"
 //better-scroll
 import scroll from "components/common/scroll/Scroll";
 import loading from "components/common/loading/Loading";
@@ -42,7 +43,7 @@ export default {
     this._getHotList();
   },
   computed: {
-    ...mapGetters(["playlist"])
+    ...mapGetters(["playlist" , "disc"])
   },
   watch: {
     playlist() {
@@ -62,6 +63,17 @@ export default {
     HotistImgload() {
       this.$refs.scroll.refresh();
     },
+
+    //接收歌单的点击事件
+    clickRecommend(item , index){
+      this.$router.push({
+        path: `/recommend/${item.id}`
+      })
+      this.setDisc(item)
+    },
+    ...mapMutations({
+      setDisc : "SET_DISC"
+    })
   },
   deactivated(){
     this.posY = this.$refs.scroll.scroll.y

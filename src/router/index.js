@@ -8,6 +8,7 @@ const singer = () => import('views/singer/Singer')
 const rank = () => import('views/rank/Rank')
 const search = () => import('views/search/Search')
 const dateil = () => import('views/singerDateil/Dateil')
+const recommendDateil = () => import('views/recommend/recommendDateil/RecommendDateil')
 
 
 export default new VueRouter({
@@ -18,7 +19,13 @@ export default new VueRouter({
     },
     {
       path: '/recommend',
-      component: recommend
+      component: recommend,
+      children: [
+        {
+          path: ':id',
+          component: recommendDateil
+        }
+      ]
     },
     {
       path: '/singer',

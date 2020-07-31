@@ -11,7 +11,7 @@ export function getHotList(){
 }
 
 //2.获取歌单里面歌曲 需要提供歌单id
-export function getHotListItem(id){
+export function getHotRecommendItem(id){
   return request({
     url: '/playlist/detail',
     // method: 'post'
