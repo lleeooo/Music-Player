@@ -58,7 +58,6 @@ export default {
 
     //点击排行榜歌单
     clickRankList(item, index) {
-      console.log(item);
       this.$router.push({
         path: `/rank/${item.id}`,
       });

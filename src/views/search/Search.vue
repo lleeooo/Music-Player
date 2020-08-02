@@ -103,15 +103,6 @@ export default {
         120
       );
     },
-    // playlist() {
-    //   console.log(this.$refs.scroll.$el)
-    //   changeScrollHeight(
-    //     this.playlist,
-    //     this.$refs.scroll.$el,
-    //     this.$refs.scroll,
-    //     120
-    //   );
-    // },
   },
 };
 </script>
@@ -135,4 +126,6 @@ export default {
     }
   }
 }
+
+
 </style>

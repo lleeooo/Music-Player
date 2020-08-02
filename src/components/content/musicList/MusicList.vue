@@ -95,7 +95,6 @@ export default {
     //接收点击的歌曲信息 并对调用action方法对state进行设置
     //selectItem 需要传入两个参数 list：全部歌曲 index：当前点击的这个首歌角标
     selectItem(item, index) {
-      console.log(item);
       this.selectPlay({
         list: this.songs,
         index: index,

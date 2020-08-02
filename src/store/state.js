@@ -9,7 +9,8 @@ const state = {
   mode: playMode.sequence, //播放模式 默认顺序播放
   curIndex: -1,  //当前播放的这首歌
 
-  disc: {}  //歌单信息
+  disc: {},  //歌单信息
+  playlistStatus: false //歌单列表的展出状态
 }
 export default state
 

@@ -42,6 +42,10 @@ const mutations = {
     state.disc = disc
   },
 
+
+  [type.SET_PLAYLIST_STATUS](state , flag) {
+    state.playlistStatus = flag
+  },
   
 }
 export default mutations

@@ -18,6 +18,9 @@ export const curIndex = state => state.curIndex
 
 export const disc = state => state.disc
 
+export const playlistStatus = state => state.playlistStatus
+
+
 
 //获取播放列表中 正在播放的歌
 export const currentSong = (state) => {

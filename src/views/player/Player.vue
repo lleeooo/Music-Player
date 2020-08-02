@@ -70,8 +70,8 @@
             <div class="i-right icon" @click="clickNext">
               <img src="~assets/img/next.png" alt class="i-next" />
             </div>
-            <div class="i-right icon">
-              <img src="~assets/img/love.png" alt class="i-favorite" />
+            <div class="i-right icon" @click="clickPlayList">
+              <img src="~assets/img/play-list.png" alt class="i-list" />
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@
             <img src="~assets/img/play.png" v-show="playing === false" />
             <img src="~assets/img/play-active.png" v-show="playing" />
           </div>
-          <div class="control">
+          <div class="control" @click.stop="clickMinList">
             <img src="~assets/img/play-list.png" class="play-list" />
           </div>
         </div>
@@ -110,18 +110,23 @@
       @timeupdate="updataTime"
       @ended="ended"
     />
+    <play-list class="music-list" v-show="playlistStatus"/>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+//组件
 import PlayerBar from "./playerChild/PlayerBar";
 import scroll from "components/common/scroll/Scroll";
-import { playMode } from "@/common/js/config";
-import { shuffle } from "@/common/js/util";
 import Lyric from "lyric-parser";
+import PlayList from "./playerChild/PlayList"
 //网络请求
 import { getMusicUrl, getLyric } from "network/singer";
+//方法
+import { playMode } from "@/common/js/config";
+import { shuffle } from "@/common/js/util";
+import { mapGetters, mapMutations } from "vuex";
+
 
 export default {
   name: "Player",
@@ -139,6 +144,7 @@ export default {
   components: {
     PlayerBar,
     scroll,
+    PlayList
   },
 
   computed: {
@@ -156,6 +162,7 @@ export default {
       "curIndex",
       "mode",
       "sequenceList",
+      "playlistStatus"
     ]),
   },
 
@@ -229,6 +236,15 @@ export default {
         this.setPlaying(true);
       }
       this.songReady = false;
+    },
+
+    //打开播放列表 (大)
+    clickPlayList() {
+      this.setPlaylistStatus(true)
+    },
+    //打开播放列表 (小)
+    clickMinList() {
+      this.setPlaylistStatus(true)
     },
 
     /**
@@ -383,6 +399,7 @@ export default {
       setCurIndex: "SET_CURRENT_INDEX",
       setMode: "SET_PLAY_MODE",
       setPlaylist: "SET_PLAYLIST",
+      setPlaylistStatus: 'SET_PLAYLIST_STATUS'
     }),
   },
   watch: {
@@ -621,12 +638,21 @@ export default {
           height: 100%;
         }
 
-        .i-favorite {
+        .i-list {
           width: 80%;
           height: 80%;
         }
       }
     }
+  }
+  
+  .music-list {
+    position fixed
+    left 0
+    right 0
+    bottom 50px
+    z-index 999
+    background-color rgba(0,0,0,.3)
   }
 }
 
