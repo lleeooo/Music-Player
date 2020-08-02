@@ -9,9 +9,9 @@ const singer = () => import('views/singer/Singer')
 const rank = () => import('views/rank/Rank')
 const search = () => import('views/search/Search')
 const dateil = () => import('views/singerDateil/Dateil')
-const recommendDateil = () => import('views/recommend/recommendDateil/RecommendDateil')
-// const rankDateil = () => import('views/rank/rankDateil/RankDateil')
-const rankDateil = () => import('views/rank/rankDateil/RankDateil')
+const recommendDetail = () => import('views/recommend/recommendDetail/RecommendDetail')
+
+const rankDetail = () => import('views/rank/rankDetail/RankDetail')
 
 
 export default new VueRouter({
@@ -26,7 +26,7 @@ export default new VueRouter({
       children: [
         {
           path: ':id',
-          component: recommendDateil
+          component: recommendDetail
         }
       ]
     },
@@ -46,13 +46,19 @@ export default new VueRouter({
       children: [
         {
           path: ':id',
-          component: rankDateil
+          component: rankDetail
         }
       ]
     }, 
     {
       path: '/search',
-      component: search
+      component: search,
+      children: [
+        {
+          path: ':id',
+          component: dateil
+        }
+      ]
     },
   ],
   mode: 'history',

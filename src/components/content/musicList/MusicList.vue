@@ -157,12 +157,6 @@ export default {
       this.$refs.bgimg.style.transform = `scale(${scale})`;
     },
 
-    // //监控歌曲列表
-    // playlist() {
-    //   console.log(1111)
-    //   //一旦添加了列表有了数据 我们更新scroll的包裹高度
-    //   this.changeScrollHeight()
-    // }
   },
 };
 </script>

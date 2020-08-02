@@ -52,7 +52,6 @@ export default {
     //获取全部榜单
     _getOutRank() {
       getOutRank().then((res) => {
-        console.log(res);
         this.rankList = res.data.list;
       });
     },
@@ -74,6 +73,15 @@ export default {
 
   computed: {
     ...mapGetters(["playlist", "disc"]),
+  },
+  activated() {
+    //进入组件前如果有小播放器 就改变scroll的高度
+    changeScrollHeight(
+      this.playlist,
+      this.$refs.scroll.$el,
+      this.$refs.scroll,
+      60
+    );
   },
   watch: {
     playlist() {

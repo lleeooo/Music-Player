@@ -58,7 +58,7 @@ export default {
       this.$router.push({
         path: `/singer/${item.id}`,
       });
-
+      console.log(item)
       //把点击的歌手信息传到mutations里面的setSinger方法
       this.setSinger(item);
     },
@@ -76,6 +76,13 @@ export default {
   },
   activated() {
     this.$refs.scroll.scrollTo(0, this.posY, 100), this.$refs.scroll.refresh();
+    //进入组件前如果有小播放器 就改变scroll的高度
+    changeScrollHeight(
+      this.playlist,
+      this.$refs.scroll.$el,
+      this.$refs.scroll,
+      100
+    );
   },
   computed: {
     ...mapGetters(["playlist"]),

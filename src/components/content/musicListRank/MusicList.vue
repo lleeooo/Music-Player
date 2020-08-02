@@ -9,7 +9,7 @@
       <div class="top-r"></div>
     </div>
     <div class="bg-img" :style="bgStyle" ref="bgimg">
-      <div class="play-wrapper" ref="playWrapper"  v-show="songs.length != 0" >
+      <div class="play-wrapper" ref="playWrapper" v-show="songs.length != 0">
         <div class="play" @click="clickRandomPlay">
           <div class="img">
             <img src="~assets/img/play.png" alt />
@@ -35,6 +35,8 @@ import scroll from "components/common/scroll/Scroll";
 import loading from "components/common/loading/Loading";
 
 import { mapActions, mapGetters } from "vuex";
+import { changeScrollHeight } from "@/common/js/changeScrollHeight";
+
 
 const NAV_HEIGHT = 52;
 export default {
@@ -156,13 +158,6 @@ export default {
       //进行样式赋值
       this.$refs.bgimg.style.transform = `scale(${scale})`;
     },
-
-    // //监控歌曲列表
-    // playlist() {
-    //   console.log(1111)
-    //   //一旦添加了列表有了数据 我们更新scroll的包裹高度
-    //   this.changeScrollHeight()
-    // }
   },
 };
 </script>
