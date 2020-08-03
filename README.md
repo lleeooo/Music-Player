@@ -1,4 +1,7 @@
-# music
+# 基于网易云音乐API开发的音乐播放器
+
+##Vue全家桶 Axios BetterScroll Stylus
+
 
 ## Project setup
 ```
@@ -7,7 +10,6 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
 npm run serve
 ```
 
