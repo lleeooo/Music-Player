@@ -58,7 +58,6 @@ export default {
       this.$router.push({
         path: `/singer/${item.id}`,
       });
-      console.log(item)
       //把点击的歌手信息传到mutations里面的setSinger方法
       this.setSinger(item);
     },

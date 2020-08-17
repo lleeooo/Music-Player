@@ -7,6 +7,7 @@ import store from './store'
 import fastclick from 'fastclick'
 import lazyload from 'vue-lazyload'
 import 'assets/stylus/index.styl'
+import 'lib-flexible'
 fastclick.attach(document.body)
 
 

@@ -652,7 +652,7 @@ export default {
     right 0
     bottom 50px
     z-index 999
-    background-color rgba(0,0,0,.3)
+    background-color rgba(0,0,0,.6)
   }
 }
 

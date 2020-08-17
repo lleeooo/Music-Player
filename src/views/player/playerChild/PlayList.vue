@@ -35,10 +35,12 @@ export default {
     //点击列表歌单 切换歌曲
     clickListItem(index) {
       this.setCurIndex(index)
+      this.setPlaying(true)
     },
     ...mapMutations({
       setPlaylistStatus: "SET_PLAYLIST_STATUS",
-      setCurIndex: 'SET_CURRENT_INDEX'
+      setCurIndex: 'SET_CURRENT_INDEX',
+      setPlaying: 'SET_PLAYING'
     }),
   },
   watch: {
